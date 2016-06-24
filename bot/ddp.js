@@ -3,7 +3,7 @@ import DDPClient from 'ddp'
 let ddpClient = null
 if (process.env.PROD) {
   ddpClient = new DDPClient({
-    url: 'https://expat-tax-demo.businessos.net/'
+    url: 'wss://expat-tax-demo.businessos.net:443/websocket'
   })
 } else {
   ddpClient = new DDPClient({
