@@ -12,11 +12,12 @@ const port = process.env.PROD ? process.env.PORT : 4000
 
 controller.setupWebserver(port, (err, webserver) => {
   controller.createWebhookEndpoints(controller.webserver, bot, () => {
-    console.log('started')
+    console.log('started', bot)
   })
 })
 
 controller.hears('.*', 'message_received', (bot, message) => {
+  console.log(message)
   ddp.call('submitResponse', [{ body: message.text, sms: true, phone: message.channel }], (err, response) => {
     bot.reply(message, { text: response })
   })
