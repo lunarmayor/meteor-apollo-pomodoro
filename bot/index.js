@@ -1,3 +1,2 @@
 import './controller'
-import './responseMap'
-import './introduction'
+import './ddp'

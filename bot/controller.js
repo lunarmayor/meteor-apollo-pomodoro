@@ -1,19 +1,26 @@
-import Botkit from 'botkit'
-import redisStorage from 'botkit-storage-redis'
-import wit from './middleware/wit'
-import removeFormatting from './middleware/removeFormatting'
-import BeepBoop from 'beepboop-botkit'
+import TwilioSMSBot from 'botkit-sms'
+import ddp from './ddp'
 
-// setup redis storage
-const storage = redisStorage(process.env.REDIS_URL)
+const controller = TwilioSMSBot({
+  account_sid: process.env.TWILIO_ACCOUNT_SID,
+  auth_token: process.env.TWILIO_AUTH_TOKEN,
+  twilio_number: process.env.TWILIO_PHONE
+})
 
-// setup botkit controller w/ custom storage
-const controller = Botkit.slackbot({ storage })
+const bot = controller.spawn({})
+const port = process.env.PROD ? process.env.PORT : 4000
 
-// apply middleware
-controller.middleware.receive.use([wit.receive, removeFormatting])
+controller.setupWebserver(port, (err, webserver) => {
+  controller.createWebhookEndpoints(controller.webserver, bot, () => {
+    console.log('started')
+  })
+})
 
-// connect to beepboop
-const beepboop = BeepBoop.start(controller, { debug: false })
+controller.hears('.*', 'message_received', (bot, message) => {
+  ddp.call('submitResponse', [{ body: message.text, sms: true, phone: message.channel }], (err, response) => {
+    bot.reply(message, { text: response })
+  })
+})
+
 
 export default controller
