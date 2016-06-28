@@ -1,5 +1,7 @@
 import TwilioSMSBot from 'botkit-sms'
 import dictionary from './dictionary'
+import phoneNumberRegex from './utilities/phoneNumberRegex'
+import phone from 'phone'
 
 const controller = TwilioSMSBot({
   account_sid: process.env.TWILIO_ACCOUNT_SID,
@@ -20,7 +22,7 @@ const tempQuestions = [
   { question: 'Are you a trump supporter?' },
   { question: 'Do you believe in god?' },
   { question: 'Do you exercise?' },
-  { question: 'Do you like dogs?' },
+  { question: 'Do you like board games' },
 ]
 
 const nextQuestion = (convo, bot, questions, index) => {
@@ -57,12 +59,22 @@ const askQuestion = (convo, bot, questions, index = 0) => {
   ])
 }
 
-controller.hears('hi', 'message_received', (bot, message) => {
-  bot.startConversation(message, (err, convo) => {
-    convo.say(dictionary.introduction)
-    convo.say(dictionary.explanation)
-    askQuestion(convo, bot, tempQuestions)
-  })
+// move elsewere
+const toMessage = number => ({ channel: number })
+const delay = (time, cb) => setTimeout(cb, time)
+
+controller.hears(phoneNumberRegex, 'message_received', (bot, message) => {
+  let phoneNumber = phone(message.text)
+  if (phoneNumber.length > 0) {
+    bot.reply(message, dictionary.realNumber)
+    bot.startConversation(toMessage(phoneNumber[0]), (err, convo) => {
+      convo.say(dictionary.introduction)
+      delay(800, () => convo.say(dictionary.explanation))
+      delay(1500, () => askQuestion(convo, bot, tempQuestions))
+    })
+  } else {
+    bot.reply(message, dictionary.notNumber)
+  }
 })
 
 export default controller

@@ -14,7 +14,6 @@
     "babel-cli": "^6.6.5",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.5.0",
-    "nodemon": "^1.9.1",
     "beepboop-botkit": "1.0.0",
     "botkit": "0.0.14",
     "botkit-middleware-witai": "0.0.2",
@@ -24,6 +23,8 @@
     "dotenv": "^2.0.0",
     "lodash": "^4.7.0",
     "node-wit": "^2.0.0",
+    "nodemon": "^1.9.1",
+    "phone": "^1.0.7",
     "wit-node": "0.0.5"
   }
 }
