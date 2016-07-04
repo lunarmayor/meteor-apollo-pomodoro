@@ -5,6 +5,26 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "meteor-node-stubs": "~0.2.0"
+    "apollo-client": "^0.3.26",
+    "apollo-server": "^0.1.5",
+    "express": "^4.14.0",
+    "graphql-tag": "^0.1.7",
+    "material-ui": "^0.15.1",
+    "meteor-node-stubs": "~0.2.0",
+    "phone": "^1.0.7",
+    "radium": "^0.17.1",
+    "react": "^15.1.0",
+    "react-addons-pure-render-mixin": "^15.2.0",
+    "react-apollo": "^0.3.13",
+    "react-dom": "^15.2.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.5.2",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "redux-auth-wrapper": "^0.5.2",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
+    "redux-form": "^5.3.1"
   }
 }
