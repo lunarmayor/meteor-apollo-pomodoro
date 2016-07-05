@@ -8,9 +8,7 @@ const Home = ({ currentUser }) => (
 )
 
 const Header = ({ currentUser, title = "Deal Breaker" }) => (
-  <AppBar
-    title={title}
-  />
+  <AppBar title={title} />
 )
 
 export default Home

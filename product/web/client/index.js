@@ -13,10 +13,13 @@ import LandingPageView from './views/onboarding/LandingPageView'
 
 import store from './store'
 import history from './history'
+import apollo from './apollo'
+
+import { isAuthed } from './utilities/auth'
 
 Meteor.startup(() => {
   render(
-    <ApolloProvider client={client} store={store}>
+    <ApolloProvider client={apollo} store={store}>
       <MuiThemeProvider>
         <Router history={history}>
           <Route path="" component={AppView} >
