@@ -1,2 +1,2 @@
 import phone from 'phone'
-export const isPhoneNumber = number => !!phone(number).length
+export const isPhoneNumber = number => phone(number).length > 0

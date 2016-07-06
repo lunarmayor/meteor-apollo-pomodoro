@@ -5,7 +5,7 @@ import { FillParent } from '../ui/layouts'
 
 const AppView = ({ children, currentUser }) => (
   <FillParent>
-    {React.cloneElement(children, { currentUser })}
+    {console.log(currentUser) || React.cloneElement(children, { currentUser })}
   </FillParent>
 )
 
@@ -22,7 +22,6 @@ const AppViewWithData = connect({
                   verified
                 }
                 isVerified
-                randomString
               }
             }
           `,

@@ -1,22 +1,23 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import { isPhoneNumber } from '../../utilities/phoneNumber'
+import { signup } from '../../actions/userAuth'
 
 // move to validations folder?
 const validate = values => {
   const errors = {}
   if (!values.phone) {
     errors.phone = 'required'
-  } else if (isPhoneNumber(values.phone)) {
+  } else if (!isPhoneNumber(values.phone)) {
     errors.phone = 'sorry this doesn\'t look like a real number'
   }
 
   return errors
 }
 
-const checkForValidNumber = (number) => {
+const checkForValidNumber = (number, dispatch) => {
   if (isPhoneNumber(number)) {
-
+    dispatch(signup(number))
   }
 }
 
@@ -28,7 +29,7 @@ const NumberForm = ({ fields: { phone }, handleSubmit, dispatch }) => (
         type="text"
         placeholder="(555) 867-1913"
         {...phone}
-        onKeyUp={({ target }) => dispatch(checkForValidNumber(target.value))}
+        onKeyUp={({ target }) => checkForValidNumber(target.value, dispatch)}
       />
       {phone.touched && phone.error && <div>{phone.error}</div>}
     </div>
@@ -43,7 +44,8 @@ const inputStyles = {
   "fontWeight": "200",
   "border": "none",
   "textAlign": "center",
-  "borderRadius": "25px"
+  "borderRadius": "25px",
+  "outline": "none",
 }
 
 export default reduxForm({
