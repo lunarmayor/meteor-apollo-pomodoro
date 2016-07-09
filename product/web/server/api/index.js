@@ -4,7 +4,6 @@ import { User } from './mutations/createUser'
 const RootQuery = `
   type Query {
     me: User
-    questions: [Question]
   }
 `
 
@@ -30,6 +29,11 @@ export const schema = [
   ...schemas,
 ]
 
+const fromGoogleProfile = (user, property) => {
+  return user.services &&
+         user.services.google ? user.services.google[property] : undefined
+}
+
 export const resolvers = {
   Query: {
     async me(root, args, context) {
@@ -41,9 +45,10 @@ export const resolvers = {
   },
 
   User: {
-    emails: ({ emails }) => emails,
-    phoneNumber: ({ phone }) => (phone && phone.number) || '',
-    formattedPhoneNumber: ({ phone }) => (phone && phone.number) || '',
-    isVerified: ({ phone }) => phone && phone.verified
+    email: (user) => fromGoogleProfile(user, 'email'),
+    firstName: (user) => fromGoogleProfile(user, 'given_name'),
+    lastName: (user) => fromGoogleProfile(user, 'family_name'),
+    fullName: (user) => fromGoogleProfile(user, 'name'),
+    avatar: (user) => fromGoogleProfile(user, 'picture'),
   }
 }

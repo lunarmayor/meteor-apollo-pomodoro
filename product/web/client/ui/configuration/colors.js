@@ -1,4 +1,4 @@
 export default {
   primaryBackground: 'white',
-  secondaryBackground: '#fee8b3'
+  secondaryBackground: '#de4c4c'
 }

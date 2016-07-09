@@ -6,7 +6,7 @@ import Mocks from './Mocks'
 createApolloServer({
   schema,
   resolvers,
-  graphql: true,
+  graphiql: true,
   pretty: true,
   mocks: Mocks,
 })

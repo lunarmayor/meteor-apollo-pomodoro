@@ -1,9 +1,10 @@
 export default `
   type User {
     _id: String
-    emails: [Email]
-    phoneNumber: String
-    isVerified: Boolean
-    formattedPhoneNumber: String
+    email: String
+    firstName: String
+    lastName: String
+    fullName: String
+    avatar: String
   }
 `

@@ -1,34 +1,18 @@
 import React from 'react'
 import { connect } from 'react-apollo';
 import CenterCenter from '../../ui/layouts/CenterCenter'
-import NumberForm from './NumberForm'
-import PinForm from './PinForm'
-import Loader from './Loader'
-import Logo from '../../ui/shared/Logo'
+import GoogleLoginButton from './GoogleLoginButton'
+import colors from '../../ui/configuration/colors'
+const { secondaryBackground } = colors
 
 const LandingPageView = ({ currentUser, onboardingStep }) => (
-  <CenterCenter column={true} style={{flex: 'none'}}>
-    <img src="/Group 4.png" style={imageStyle}/>
-    <CenterCenter style={{ height: '80px', flex: 'none' }}>
-      {onboardingStep === 'WAITING_FOR_NUMBER' && <NumberForm />}
-      {onboardingStep === 'WAITING_FOR_USER_CREATION' && <Loader />}
-      {onboardingStep === 'WAITING_FOR_PIN' && <PinForm currentUser={currentUser}/>}
-    </CenterCenter>
-
+  <CenterCenter style={style} column={true}>
+    <GoogleLoginButton />
   </CenterCenter>
 )
 
-let imageStyle = {
-  width: 150,
-  borderRadius: '50%',
-  padding: 24
+let style = {
+  background: secondaryBackground,
 }
 
-export default connect({
-  mapStateToProps(state) {
-    return {
-      onboardingStep: state.onboarding
-    }
-  }
-})(LandingPageView)
-
+export default LandingPageView

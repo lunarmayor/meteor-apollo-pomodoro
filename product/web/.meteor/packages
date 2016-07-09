@@ -20,3 +20,5 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 apollo
 react-meteor-data
 okland:accounts-phone@0.0.21
+service-configuration
+accounts-google

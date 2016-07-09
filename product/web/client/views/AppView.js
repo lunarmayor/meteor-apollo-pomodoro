@@ -14,14 +14,12 @@ const AppViewWithData = connect({
     return {
       currentUser: {
         query: gql`
-          query getUserData {
+          query getCurrentUser {
             me {
-              phoneNumber
-              emails {
-                address
-                verified
-              }
-              isVerified
+              email
+              fullName
+              firstName
+              avatar
             }
           }
         `,

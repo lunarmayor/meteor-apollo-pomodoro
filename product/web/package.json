@@ -2,7 +2,7 @@
   "name": "dealbreaker-app",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor --settings settings.json"
   },
   "dependencies": {
     "apollo-client": "^0.3.26",
@@ -10,6 +10,7 @@
     "bluebird": "^3.4.1",
     "casual": "^1.5.3",
     "express": "^4.14.0",
+    "graphql": "^0.6.1",
     "graphql-tag": "^0.1.7",
     "graphql-tools": "^0.6.0",
     "material-ui": "^0.15.1",
@@ -17,7 +18,7 @@
     "phone": "^1.0.7",
     "radium": "^0.17.1",
     "ramda": "^0.21.0",
-    "react": "^15.1.0",
+    "react": "~15.1.0",
     "react-addons-pure-render-mixin": "^15.2.0",
     "react-apollo": "^0.3.13",
     "react-dom": "^15.2.0",
@@ -30,6 +31,7 @@
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
-    "redux-form": "^5.3.1"
+    "redux-form": "^5.3.1",
+    "redux-thunk": "^2.1.0"
   }
 }
