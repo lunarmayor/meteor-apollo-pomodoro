@@ -1,3 +1,4 @@
 export default {
-  primaryBackground: 'rgb(129, 187, 224)',
+  primaryBackground: 'white',
+  secondaryBackground: '#fee8b3'
 }

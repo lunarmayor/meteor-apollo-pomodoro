@@ -1,11 +1,15 @@
 import React from 'react'
 import radium from 'radium'
 
-const CenterCenter = ({ children, style }) =>(
-  <div style={[defaultStyles, style]}>
+const CenterCenter = ({ children, style, column }) =>(
+  <div style={[defaultStyles, style, column && columnStyle]}>
     {children}
   </div>
 )
+
+const columnStyle = {
+  flexDirection: 'column',
+}
 
 const defaultStyles = {
   flex: 1,

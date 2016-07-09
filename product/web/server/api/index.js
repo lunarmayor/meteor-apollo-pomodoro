@@ -3,7 +3,8 @@ import { User } from './mutations/createUser'
 
 const RootQuery = `
   type Query {
-    user(id: String!): User
+    me: User
+    questions: [Question]
   }
 `
 
@@ -31,7 +32,7 @@ export const schema = [
 
 export const resolvers = {
   Query: {
-    async user(root, args, context) {
+    async me(root, args, context) {
       return await Meteor.users.findOne(context.userId);
     },
   },
@@ -41,8 +42,8 @@ export const resolvers = {
 
   User: {
     emails: ({ emails }) => emails,
-    phoneNumber: ({ phoneNumber }) => phoneNumber,
-    formattedPhoneNumber: ({ phoneNumber }) => phoneNumber,
-    isVerified: (user) => user && user.phone && user.phone.verified
+    phoneNumber: ({ phone }) => (phone && phone.number) || '',
+    formattedPhoneNumber: ({ phone }) => (phone && phone.number) || '',
+    isVerified: ({ phone }) => phone && phone.verified
   }
 }

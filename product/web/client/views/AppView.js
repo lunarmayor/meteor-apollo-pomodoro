@@ -5,39 +5,30 @@ import { FillParent } from '../ui/layouts'
 
 const AppView = ({ children, currentUser }) => (
   <FillParent>
-    {console.log(currentUser) || React.cloneElement(children, { currentUser })}
+    {React.cloneElement(children, { currentUser })}
   </FillParent>
 )
 
 const AppViewWithData = connect({
-  mapQueriesToProps({ ownProps }) {
-    if (ownProps.userId) {
-      return {
-        currentUser: {
-          query: gql`
-            query getUserData ($id: String!) {
-              user(id: $id) {
-                emails {
-                  address
-                  verified
-                }
-                isVerified
+  mapQueriesToProps() {
+    return {
+      currentUser: {
+        query: gql`
+          query getUserData {
+            me {
+              phoneNumber
+              emails {
+                address
+                verified
               }
+              isVerified
             }
-          `,
-          variables: {
-            id: ownProps.userId,
-          },
-        }
+          }
+        `,
+        pollInterval: 1000,
       }
     }
   }
 })(AppView)
 
-const AppWithUserId = createContainer(() => {
-  return {
-    userId: Meteor.userId(),
-  }
-}, AppViewWithData)
-
-export default AppWithUserId
+export default AppViewWithData

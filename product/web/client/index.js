@@ -15,7 +15,7 @@ import store from './store'
 import history from './history'
 import apollo from './apollo'
 
-import { isAuthed } from './utilities/auth'
+import { isAuthed, isLoggedIn } from './utilities/auth'
 
 Meteor.startup(() => {
   render(
@@ -23,7 +23,7 @@ Meteor.startup(() => {
       <MuiThemeProvider>
         <Router history={history}>
           <Route path="" component={AppView} >
-            <Route path="login" component={LandingPageView} />
+            <Route path="login" onEnter={isLoggedIn} component={LandingPageView} />
             <Route path="/" component={Home} onEnter={isAuthed} />
           </Route>
         </Router>
