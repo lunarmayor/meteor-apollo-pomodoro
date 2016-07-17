@@ -8,5 +8,6 @@ const store = createStore(
   middleware
 )
 
+window.reduxStore = store
 window['gql'] = gql
 export default store

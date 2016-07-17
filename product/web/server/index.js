@@ -1,14 +1,11 @@
 import { createApolloServer } from 'meteor/apollo'
-import { mockServer } from 'graphql-tools'
-import { schema, resolvers } from './api'
-import Mocks from './Mocks'
+import { schema, resolvers, mocks } from './api'
 
 createApolloServer({
   schema,
   resolvers,
+  mocks,
   graphiql: true,
   pretty: true,
-  mocks: Mocks,
 })
 
-Accounts._options.sendPhoneVerificationCodeOnCreation = true

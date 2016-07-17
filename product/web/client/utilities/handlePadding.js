@@ -14,7 +14,7 @@ const mapToPadding = (paddingSize) => {
 const handlePadding = Wrapped => class HandlePadding extends React.Component {
   render() {
     let paddingStyle = mapToPadding(this.props.padding)
-    console.log(this.props)
+
     return (
       <Wrapped
         style={Object.assign({}, paddingStyle, this.props.style)}

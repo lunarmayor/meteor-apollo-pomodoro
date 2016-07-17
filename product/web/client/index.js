@@ -10,6 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppView from './views/AppView'
 import Home from './views/Home'
 import LandingPageView from './views/onboarding/LandingPageView'
+import TrackerView from './views/tracking/TrackerView'
 
 import store from './store'
 import history from './history'
@@ -17,6 +18,7 @@ import apollo from './apollo'
 
 import { isAuthed, isLoggedIn } from './utilities/auth'
 
+const Place = () => <div>hello</div>
 Meteor.startup(() => {
   render(
     <ApolloProvider client={apollo} store={store}>
@@ -24,7 +26,9 @@ Meteor.startup(() => {
         <Router history={history}>
           <Route path="" component={AppView} >
             <Route path="login" onEnter={isLoggedIn} component={LandingPageView} />
-            <Route path="/" component={Home} onEnter={isAuthed} />
+            <Route path="" component={Home} onEnter={isAuthed}>
+              <Route path="/" component={TrackerView} />
+            </Route>
           </Route>
         </Router>
       </MuiThemeProvider>

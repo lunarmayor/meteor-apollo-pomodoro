@@ -1,21 +1,31 @@
-import schemas from './schema'
-import { User } from './mutations/createUser'
+import { UserQueries, UserSchema, UserResolver } from './User'
+import { TimerQueries, TimerMutations, TimerSchema } from './Timer'
 
-const RootQuery = `
+export const resolvers = {
+  Query: {
+    ...UserQueries,
+    ...TimerQueries,
+  },
+  Mutation: {
+    ...TimerMutations,
+  },
+  ...UserResolver
+}
+
+const RootSchema = `
   type Query {
     me: User
+    users: [User]
+    timers: [Timer]
   }
-`
 
-const RootMutation = `
   type Mutation {
-    createUser(
-      phoneNumber: String!
-    ): User
+    createTimer(
+      seconds: Int!
+      _id: String!
+    ): Timer
   }
-`
 
-const SchemaDefinition = `
   schema {
     query: Query
     mutation: Mutation
@@ -23,32 +33,11 @@ const SchemaDefinition = `
 `
 
 export const schema = [
-  SchemaDefinition,
-  RootMutation,
-  RootQuery,
-  ...schemas,
+  RootSchema,
+  UserSchema,
+  TimerSchema,
 ]
 
-const fromGoogleProfile = (user, property) => {
-  return user.services &&
-         user.services.google ? user.services.google[property] : undefined
+export const mocks = {
 }
 
-export const resolvers = {
-  Query: {
-    async me(root, args, context) {
-      return await Meteor.users.findOne(context.userId);
-    },
-  },
-  Mutation: {
-    ...User
-  },
-
-  User: {
-    email: (user) => fromGoogleProfile(user, 'email'),
-    firstName: (user) => fromGoogleProfile(user, 'given_name'),
-    lastName: (user) => fromGoogleProfile(user, 'family_name'),
-    fullName: (user) => fromGoogleProfile(user, 'name'),
-    avatar: (user) => fromGoogleProfile(user, 'picture'),
-  }
-}

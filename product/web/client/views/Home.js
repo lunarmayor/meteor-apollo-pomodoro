@@ -1,19 +1,16 @@
 import React from 'react'
-import { AppBar } from 'material-ui'
+import Header from '../ui/shared/Header'
 
-const Home = ({ currentUser }) => (
+const Home = ({ currentUser, children }) => (
   <div>
     <Header/>
+    <div style={spacerStyle}/>
+    {React.cloneElement(children, { currentUser })}
   </div>
 )
 
-const Header = ({ currentUser, title = "" }) => (
-  <header>hi</header>
-)
-
-let headerStyle = {
-  color: '',
-  padding: '0 10',
+let spacerStyle = {
+  height: 54,
 }
 
 export default Home
